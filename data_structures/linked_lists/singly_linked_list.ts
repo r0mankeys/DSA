@@ -57,39 +57,35 @@ export class SinglyLinkedList {
     }
     return count;
   }
+  private inputChecker(
+    input: any,
+    nextValue: SinglyLinkedListNodeNext = null
+  ): SinglyLinkedListNode {
+    const actualData =
+      input instanceof SinglyLinkedListNode ? input.data : input;
+    return new SinglyLinkedListNode(actualData, nextValue);
+  }
   prepend(data: any) {
-    let newNode = new SinglyLinkedListNode(data, this.head);
+    let newNode = this.inputChecker(data, this.head); // no need to check later, check during intialisation
     if (!this.tail) {
-      if (data instanceof SinglyLinkedListNode) {
-        newNode = new SinglyLinkedListNode(data.data, this.head);
-      }
       this.head = this.tail = newNode;
-      return this;
+    } else {
+      this.head = newNode;
     }
-    if (data instanceof SinglyLinkedListNode) {
-      newNode = new SinglyLinkedListNode(data.data, this.head);
-    }
-
-    this.head = newNode;
     return this;
   }
   append(data: any) {
-    let newNode = new SinglyLinkedListNode(data, null);
+    let newNode = this.inputChecker(data);
     if (!this.head) {
-      if (data instanceof SinglyLinkedListNode) {
-        newNode = new SinglyLinkedListNode(data.data, null);
-      }
       this.head = this.tail = newNode;
-      return this;
-    }
-    if (this.tail) {
-      if (data instanceof SinglyLinkedListNode) {
-        newNode = new SinglyLinkedListNode(data.data, null);
+    } else {
+      if (this.tail) {
+        // set new tail to new node
+        this.tail.next = newNode;
+        // update this.tail to accuratley reflect change
+        this.tail = newNode;
       }
-      // set new tail to new node
-      this.tail.next = newNode;
-      // update this.tail to accuratley reflect change
-      this.tail = newNode;
     }
+    return this;
   }
 }
