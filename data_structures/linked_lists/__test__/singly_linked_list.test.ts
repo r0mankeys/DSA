@@ -28,19 +28,27 @@ describe("Singly linked list with one node", () => {
 });
 
 describe("Singly linked list with multiple nodes", () => {
-  const singly_linked_list = new SinglyLinkedList();
+  const singly_linked_list1 = new SinglyLinkedList();
+  const singly_linked_list2 = new SinglyLinkedList();
   let node1 = new SinglyLinkedListNode("first");
   let node2 = new SinglyLinkedListNode("second");
-  singly_linked_list.append("first");
-  singly_linked_list.prepend("second");
+
+  singly_linked_list1.append("first");
+  singly_linked_list1.prepend("second");
+
+  singly_linked_list2.append(node1);
+  singly_linked_list2.prepend(node2);
 
   test("Length of list should not be one as there are multiple nodes", () => {
-    expect(singly_linked_list.length === 1).toBe(false);
+    expect(singly_linked_list1.length === 1).toBe(false);
   });
   test("List head should not be equal to the tail", () => {
-    expect(singly_linked_list.head === singly_linked_list.tail).toBe(false);
+    expect(singly_linked_list1.head === singly_linked_list1.tail).toBe(false);
   });
   test("List tail should be latest apended value", () => {
-    expect(singly_linked_list.tail).toStrictEqual(node1);
+    expect(singly_linked_list1.tail).toStrictEqual(node1);
+  });
+  test("Lists should be identical in spite of one using instances and the other using literals", () => {
+    expect(singly_linked_list1).toStrictEqual(singly_linked_list2);
   });
 });
