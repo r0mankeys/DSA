@@ -40,6 +40,11 @@
 import { SinglyLinkedListNode } from "./singly_linked_list_node";
 import type { SinglyLinkedListNodeNext } from "./singly_linked_list_node";
 
+type DetailedIdentifier = {
+  dataToAdd: any;
+  referenceDataInList: any;
+};
+
 export class SinglyLinkedList {
   head: SinglyLinkedListNodeNext;
   tail: SinglyLinkedListNodeNext;
@@ -95,7 +100,7 @@ export class SinglyLinkedList {
     data.forEach((entry) => this.prepend(entry));
     return this;
   }
-  insert(identifier: any, data: any) {
+  insert(data: any, identifier: any = undefined) {
     // 1. Check if identifier is at head or tail
     // If so prepend or append the data accodingly
     if (identifier <= 0) {
