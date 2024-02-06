@@ -36,7 +36,7 @@ describe("Comparator without argument", () => {
     expect(comparator.lessThanOrEqual(0, 0)).toBe(true);
   });
   test("greaterThanEqual() Should compare if first number is greater than or equal to next number with default comparator", () => {
-    expect(comparator.greaterThanEqual(45, 10)).toBe(true);
+    expect(comparator.greaterThanOrEqual(45, 10)).toBe(true);
   });
 });
 
