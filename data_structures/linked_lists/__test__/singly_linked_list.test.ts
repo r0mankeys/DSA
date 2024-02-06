@@ -61,7 +61,7 @@ describe("Singly linked list with multiple nodes", () => {
   singly_linked_list6.append(node4);
   singly_linked_list6.append(node5);
 
-  singly_linked_list6.insert(2, "peaches");
+  singly_linked_list6.insert("peaches", 2);
 
   let nodes: Array<SinglyLinkedListNode> = [node1, node2, node3, node4, node5];
 
@@ -91,12 +91,12 @@ describe("Singly linked list with multiple nodes", () => {
   });
   test("Lists should be identical in spite of undergoing two differnent methods, as methods should both add node to beginning", () => {
     expect(singly_linked_list4.append("first")).toStrictEqual(
-      singly_linked_list5.insert(0, "first")
+      singly_linked_list5.insert("first", 0)
     );
   });
   test("Lists should be identical in spite of undergoing two differnent methods, as methods should add node to end", () => {
     expect(singly_linked_list4.append("second")).toStrictEqual(
-      singly_linked_list5.insert(1, "second")
+      singly_linked_list5.insert("second", 1)
     );
   });
   test("Lists should insert node at given `index`", () => {
