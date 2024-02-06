@@ -58,22 +58,34 @@ export class SinglyLinkedList {
     return count;
   }
   prepend(data: any) {
+    let newNode = new SinglyLinkedListNode(data, this.head);
     if (!this.tail) {
-      this.head = this.tail = new SinglyLinkedListNode(data, this.head);
+      if (data instanceof SinglyLinkedListNode) {
+        newNode = new SinglyLinkedListNode(data.data, this.head);
+      }
+      this.head = this.tail = newNode;
       return this;
     }
+    if (data instanceof SinglyLinkedListNode) {
+      newNode = new SinglyLinkedListNode(data.data, this.head);
+    }
 
-    this.head = new SinglyLinkedListNode(data, this.head);
-
+    this.head = newNode;
     return this;
   }
   append(data: any) {
-    const newNode = new SinglyLinkedListNode(data, null);
+    let newNode = new SinglyLinkedListNode(data, null);
     if (!this.head) {
+      if (data instanceof SinglyLinkedListNode) {
+        newNode = new SinglyLinkedListNode(data.data, null);
+      }
       this.head = this.tail = newNode;
       return this;
     }
     if (this.tail) {
+      if (data instanceof SinglyLinkedListNode) {
+        newNode = new SinglyLinkedListNode(data.data, null);
+      }
       // set new tail to new node
       this.tail.next = newNode;
       // update this.tail to accuratley reflect change
