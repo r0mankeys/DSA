@@ -30,14 +30,24 @@ describe("Singly linked list with one node", () => {
 describe("Singly linked list with multiple nodes", () => {
   const singly_linked_list1 = new SinglyLinkedList();
   const singly_linked_list2 = new SinglyLinkedList();
+  const singly_linked_list3 = new SinglyLinkedList();
   let node1 = new SinglyLinkedListNode("first");
   let node2 = new SinglyLinkedListNode("second");
+  let node3 = new SinglyLinkedListNode("third");
+  let node4 = new SinglyLinkedListNode("fourth");
+  let node5 = new SinglyLinkedListNode("fifth");
 
   singly_linked_list1.append("first");
   singly_linked_list1.prepend("second");
 
   singly_linked_list2.append(node1);
   singly_linked_list2.prepend(node2);
+
+  singly_linked_list3.append(node1);
+  singly_linked_list3.append(node2);
+  singly_linked_list3.append(node3);
+  singly_linked_list3.append(node4);
+  singly_linked_list3.append(node5);
 
   test("Length of list should not be one as there are multiple nodes", () => {
     expect(singly_linked_list1.length === 1).toBe(false);
@@ -50,5 +60,14 @@ describe("Singly linked list with multiple nodes", () => {
   });
   test("Lists should be identical in spite of one using instances and the other using literals", () => {
     expect(singly_linked_list1).toStrictEqual(singly_linked_list2);
+  });
+  test("Lists should print all nodes data values to array and return it", () => {
+    expect(singly_linked_list3.print()).toStrictEqual([
+      node1.data,
+      node2.data,
+      node3.data,
+      node4.data,
+      node5.data,
+    ]);
   });
 });
