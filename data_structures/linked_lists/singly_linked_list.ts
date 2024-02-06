@@ -37,7 +37,6 @@
     the linked list as an array (to see it all easier) and 
     to see the amount of nodes in the list 
 */
-
 import { SinglyLinkedListNode } from "./singly_linked_list_node";
 import type { SinglyLinkedListNodeNext } from "./singly_linked_list_node";
 
@@ -84,6 +83,42 @@ export class SinglyLinkedList {
         this.tail.next = newNode;
         // update this.tail to accuratley reflect change
         this.tail = newNode;
+      }
+    }
+    return this;
+  }
+  appendMany(data: Array<any>) {
+    data.forEach((entry) => this.append(entry));
+    return this;
+  }
+  prependMany(data: Array<any>) {
+    data.forEach((entry) => this.prepend(entry));
+    return this;
+  }
+  insert(identifier: any, data: any) {
+    // 1. Check if identifier is at head or tail
+    // If so prepend or append the data accodingly
+    if (identifier <= 0) {
+      this.prepend(data);
+    } else if (identifier >= this.length) {
+      this.append(data);
+    } else {
+      // 2. Create an accureate new node of the data
+      let newNode = this.inputChecker(data);
+      // create pointers at previous and current node
+      let previous: SinglyLinkedListNodeNext = this.head;
+      let current: SinglyLinkedListNodeNext = this.head;
+      let count: number = 0;
+      // 3. Itterate through the list until index is hit
+      while (previous && current && count < identifier) {
+        count += 1;
+        previous = current;
+        current = current.next;
+      }
+      // 4. Set previous.next to newNode, set newNode.next to current
+      if (previous && current) {
+        newNode.next = current;
+        previous.next = newNode;
       }
     }
     return this;
