@@ -57,4 +57,27 @@ export class SinglyLinkedList {
     }
     return count;
   }
+  prepend(data: any) {
+    if (!this.tail) {
+      this.head = this.tail = new SinglyLinkedListNode(data, this.head);
+      return this;
+    }
+
+    this.head = new SinglyLinkedListNode(data, this.head);
+
+    return this;
+  }
+  append(data: any) {
+    const newNode = new SinglyLinkedListNode(data, null);
+    if (!this.head) {
+      this.head = this.tail = newNode;
+      return this;
+    }
+    if (this.tail) {
+      // set new tail to new node
+      this.tail.next = newNode;
+      // update this.tail to accuratley reflect change
+      this.tail = newNode;
+    }
+  }
 }
