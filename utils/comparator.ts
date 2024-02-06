@@ -73,7 +73,7 @@ export class Comparator<T> {
   lessThanOrEqual(first: any, second: T) {
     return this.lessThan(first, second) || this.isEqual(first, second);
   }
-  greaterThanEqual(first: any, second: T) {
+  greaterThanOrEqual(first: any, second: T) {
     return this.greaterThan(first, second) || this.isEqual(first, second);
   }
 }
