@@ -66,7 +66,7 @@ export class SinglyLinkedList {
     return new SinglyLinkedListNode(actualData, nextValue);
   }
   prepend(data: any) {
-    let newNode = this.inputChecker(data, this.head); // no need to check later, check during intialisation
+    let newNode: SinglyLinkedListNode = this.inputChecker(data, this.head); // no need to check later, check during intialisation
     if (!this.tail) {
       this.head = this.tail = newNode;
     } else {
@@ -75,7 +75,7 @@ export class SinglyLinkedList {
     return this;
   }
   append(data: any) {
-    let newNode = this.inputChecker(data);
+    let newNode: SinglyLinkedListNode = this.inputChecker(data);
     if (!this.head) {
       this.head = this.tail = newNode;
     } else {
@@ -87,5 +87,14 @@ export class SinglyLinkedList {
       }
     }
     return this;
+  }
+  print() {
+    let array: Array<SinglyLinkedListNode> = [];
+    let current: SinglyLinkedListNodeNext = this.head;
+    while (current) {
+      array.push(current.data);
+      current = current.next;
+    }
+    return array;
   }
 }
