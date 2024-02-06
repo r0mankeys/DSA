@@ -37,3 +37,14 @@
     the linked list as an array (to see it all easier) and 
     to see the amount of nodes in the list 
 */
+
+import { SinglyLinkedListNode } from "./singly_linked_list_node";
+
+export class SinglyLinkedList {
+  head = null;
+  tail = null;
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+}
