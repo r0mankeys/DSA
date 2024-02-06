@@ -39,12 +39,22 @@
 */
 
 import { SinglyLinkedListNode } from "./singly_linked_list_node";
+import type { SinglyLinkedListNodeNext } from "./singly_linked_list_node";
 
 export class SinglyLinkedList {
-  head = null;
-  tail = null;
+  head: SinglyLinkedListNodeNext;
+  tail: SinglyLinkedListNodeNext;
   constructor() {
     this.head = null;
     this.tail = null;
+  }
+  get length() {
+    let current: SinglyLinkedListNodeNext = this.head;
+    let count: number = 0;
+    while (current) {
+      current = current.next;
+      count += 1;
+    }
+    return count;
   }
 }
