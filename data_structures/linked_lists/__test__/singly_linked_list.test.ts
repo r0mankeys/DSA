@@ -31,6 +31,12 @@ describe("Singly linked list with multiple nodes", () => {
   const singly_linked_list1 = new SinglyLinkedList();
   const singly_linked_list2 = new SinglyLinkedList();
   const singly_linked_list3 = new SinglyLinkedList();
+  const singly_linked_list4 = new SinglyLinkedList();
+  const singly_linked_list5 = new SinglyLinkedList();
+  const singly_linked_list6 = new SinglyLinkedList();
+  const singly_linked_list7 = new SinglyLinkedList();
+  const singly_linked_list8 = new SinglyLinkedList();
+
   let node1 = new SinglyLinkedListNode("first");
   let node2 = new SinglyLinkedListNode("second");
   let node3 = new SinglyLinkedListNode("third");
@@ -48,6 +54,19 @@ describe("Singly linked list with multiple nodes", () => {
   singly_linked_list3.append(node3);
   singly_linked_list3.append(node4);
   singly_linked_list3.append(node5);
+
+  singly_linked_list6.append(node1);
+  singly_linked_list6.append(node2);
+  singly_linked_list6.append(node3);
+  singly_linked_list6.append(node4);
+  singly_linked_list6.append(node5);
+
+  singly_linked_list6.insert(2, "peaches");
+
+  let nodes: Array<SinglyLinkedListNode> = [node1, node2, node3, node4, node5];
+
+  singly_linked_list7.appendMany(nodes);
+  singly_linked_list8.prependMany(nodes);
 
   test("Length of list should not be one as there are multiple nodes", () => {
     expect(singly_linked_list1.length === 1).toBe(false);
@@ -68,6 +87,44 @@ describe("Singly linked list with multiple nodes", () => {
       node3.data,
       node4.data,
       node5.data,
+    ]);
+  });
+  test("Lists should be identical in spite of undergoing two differnent methods, as methods should both add node to beginning", () => {
+    expect(singly_linked_list4.append("first")).toStrictEqual(
+      singly_linked_list5.insert(0, "first")
+    );
+  });
+  test("Lists should be identical in spite of undergoing two differnent methods, as methods should add node to end", () => {
+    expect(singly_linked_list4.append("second")).toStrictEqual(
+      singly_linked_list5.insert(1, "second")
+    );
+  });
+  test("Lists should insert node at given `index`", () => {
+    expect(singly_linked_list6.print()).toStrictEqual([
+      node1.data,
+      node2.data,
+      "peaches",
+      node3.data,
+      node4.data,
+      node5.data,
+    ]);
+  });
+  test("List should append all nodes in in input array", () => {
+    expect(singly_linked_list7.print()).toStrictEqual([
+      node1.data,
+      node2.data,
+      node3.data,
+      node4.data,
+      node5.data,
+    ]);
+  });
+  test("List should prepend all nodes in in input array", () => {
+    expect(singly_linked_list8.print()).toStrictEqual([
+      node5.data,
+      node4.data,
+      node3.data,
+      node2.data,
+      node1.data,
     ]);
   });
 });
