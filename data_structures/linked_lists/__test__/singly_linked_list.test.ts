@@ -3,12 +3,13 @@ import { SinglyLinkedListNode } from "../singly_linked_list_node";
 import { SinglyLinkedList } from "../singly_linked_list";
 
 describe("Singly Linked List", () => {
-  let singly_linked_list: SinglyLinkedList;
-  let node1: SinglyLinkedListNode<any>,
-    node2: SinglyLinkedListNode<any>,
-    node3: SinglyLinkedListNode<any>,
-    node4: SinglyLinkedListNode<any>,
-    node5: SinglyLinkedListNode<any>;
+  let singly_linked_list: SinglyLinkedList<string>;
+  let node1: SinglyLinkedListNode<string>,
+    node2: SinglyLinkedListNode<string>,
+    node3: SinglyLinkedListNode<string>,
+    node4: SinglyLinkedListNode<string>,
+    node5: SinglyLinkedListNode<string>,
+    peaches: SinglyLinkedListNode<string>;
 
   beforeEach(() => {
     singly_linked_list = new SinglyLinkedList();
@@ -17,6 +18,7 @@ describe("Singly Linked List", () => {
     node3 = new SinglyLinkedListNode("third");
     node4 = new SinglyLinkedListNode("fourth");
     node5 = new SinglyLinkedListNode("fifth");
+    peaches = new SinglyLinkedListNode("peaches");
   });
 
   test("Should be a linked list with a head and tail that are both null", () => {
@@ -49,8 +51,7 @@ describe("Singly Linked List", () => {
       node4.data,
       node5.data,
     ]);
-
-    singly_linked_list.insert("peaches", 2);
+    singly_linked_list.insert(peaches, 2);
     expect(singly_linked_list.print()).toStrictEqual([
       node2.data,
       node1.data,
