@@ -4,11 +4,11 @@ import { SinglyLinkedList } from "../singly_linked_list";
 
 describe("Singly Linked List", () => {
   let singly_linked_list: SinglyLinkedList;
-  let node1: SinglyLinkedListNode,
-    node2: SinglyLinkedListNode,
-    node3: SinglyLinkedListNode,
-    node4: SinglyLinkedListNode,
-    node5: SinglyLinkedListNode;
+  let node1: SinglyLinkedListNode<any>,
+    node2: SinglyLinkedListNode<any>,
+    node3: SinglyLinkedListNode<any>,
+    node4: SinglyLinkedListNode<any>,
+    node5: SinglyLinkedListNode<any>;
 
   beforeEach(() => {
     singly_linked_list = new SinglyLinkedList();
