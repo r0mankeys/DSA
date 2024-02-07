@@ -16,28 +16,21 @@
         - The data and next node will be private and only accessible through methods
 
       e.g.
-
-      const node1 = new SinglyLinkedListNode<string>("node");
-      const node2 = new SinglyLinkedListNode<object>({ name: "Finch", age: 20 });
-      const node3 = new SinglyLinkedListNode<number>(5);
-      console.log(node1.data); // "node"
-      console.log(node2.data); // { name: "Finch", age: 20 }
-      console.log(node3.data); // 5
-      console.log(node1.next); // null
-      console.log(node2.next); // null
-      console.log(node3.next); // null
-      node1.data = "new node";
-      console.log(node1.data); // "new node"
-      node1.next = node2;
-      console.log(node1.next); // { data: "new node", next: SinglyLinkedListNode { data: { name: "Finch", age: 20 }, next: null }}
+      const node = new SinglyLinkedListNode("node");
+      console.log(node.data); // "node"
+      node.data = "new node";
+      console.log(node.data); // "new node"
+      console.log(node.next); // null
+      node.next = new SinglyLinkedListNode("new node");
+      console.log(node.next.data); // "new node"
 */
 
 export type SinglyLinkedListNodeNext<T> = SinglyLinkedListNode<T> | null;
 
-export class SinglyLinkedListNode<T, U = T> {
+export class SinglyLinkedListNode<T> {
   #data: T;
-  #next: SinglyLinkedListNodeNext<U>;
-  constructor(data: T, next: SinglyLinkedListNodeNext<U> = null) {
+  #next: SinglyLinkedListNodeNext<T>;
+  constructor(data: T, next: SinglyLinkedListNodeNext<T> = null) {
     this.#data = data;
     this.#next = next;
   }
@@ -47,27 +40,10 @@ export class SinglyLinkedListNode<T, U = T> {
   set data(value: T) {
     this.#data = value;
   }
-  get next(): SinglyLinkedListNodeNext<U> {
+  get next(): SinglyLinkedListNodeNext<T> {
     return this.#next;
   }
-  set next(value: SinglyLinkedListNodeNext<U>) {
+  set next(value: SinglyLinkedListNodeNext<T>) {
     this.#next = value;
   }
 }
-
-const node1 = new SinglyLinkedListNode<string>("node");
-const node2 = new SinglyLinkedListNode<string, object>({
-  name: "Finch",
-  age: 20,
-});
-const node3 = new SinglyLinkedListNode<number>(5);
-console.log(node1.data); // "node"
-console.log(node2.data); // { name: "Finch", age: 20 }
-console.log(node3.data); // 5
-console.log(node1.next); // null
-console.log(node2.next); // null
-console.log(node3.next); // null
-node1.data = "new node";
-console.log(node1.data); // "new node"
-node1.next = node2;
-console.log(node1.next); // { data: "new node", next: SinglyLinkedListNode { data: { name: "Finch", age: 20 }, next: null }}
