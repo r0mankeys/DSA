@@ -37,6 +37,7 @@ describe("Singly linked list with multiple nodes", () => {
   const singly_linked_list7 = new SinglyLinkedList();
   const singly_linked_list8 = new SinglyLinkedList();
   const singly_linked_list9 = new SinglyLinkedList();
+  const singly_linked_list10 = new SinglyLinkedList();
 
   let node1 = new SinglyLinkedListNode("first");
   let node2 = new SinglyLinkedListNode("second");
@@ -69,9 +70,12 @@ describe("Singly linked list with multiple nodes", () => {
   singly_linked_list7.appendMany(nodes);
   singly_linked_list8.prependMany(nodes);
   singly_linked_list9.appendMany(nodes);
+  singly_linked_list10.appendMany(nodes);
 
   singly_linked_list9.delete(0);
   singly_linked_list9.delete(2);
+
+  singly_linked_list10.reverse();
 
   test("Length of list should not be one as there are multiple nodes", () => {
     expect(singly_linked_list1.length === 1).toBe(false);
@@ -152,5 +156,14 @@ describe("Singly linked list with multiple nodes", () => {
       data: node3.data,
       index: 1,
     });
+  });
+  test("Should reverse the list", () => {
+    expect(singly_linked_list10.print()).toStrictEqual([
+      node5.data,
+      node4.data,
+      node3.data,
+      node2.data,
+      node1.data,
+    ]);
   });
 });
