@@ -39,7 +39,7 @@ export type CompareFunction<T> = (
 ) => CompareFunctionResult;
 
 export class Comparator<T> {
-  compare: Function;
+  compare: CompareFunction<T>;
   constructor(compareFunction: CompareFunction<T> | undefined = undefined) {
     this.compare = compareFunction || Comparator.baseCompareFunction;
   }
