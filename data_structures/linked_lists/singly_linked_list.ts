@@ -40,11 +40,6 @@
 import { SinglyLinkedListNode } from "./singly_linked_list_node";
 import type { SinglyLinkedListNodeNext } from "./singly_linked_list_node";
 
-type DetailedIdentifier = {
-  dataToAdd: any;
-  referenceDataInList: any;
-};
-
 export class SinglyLinkedList {
   head: SinglyLinkedListNodeNext;
   tail: SinglyLinkedListNodeNext;
