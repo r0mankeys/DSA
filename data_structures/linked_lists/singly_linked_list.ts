@@ -40,15 +40,21 @@
 import { SinglyLinkedListNode } from "./singly_linked_list_node";
 import type { SinglyLinkedListNodeNext } from "./singly_linked_list_node";
 
-export class SinglyLinkedList {
-  head: SinglyLinkedListNodeNext;
-  tail: SinglyLinkedListNodeNext;
+export class SinglyLinkedList<T> {
+  #head: SinglyLinkedListNodeNext<T>;
+  #tail: SinglyLinkedListNodeNext<T>;
   constructor() {
-    this.head = null;
-    this.tail = null;
+    this.#head = null;
+    this.#tail = null;
+  }
+  get head() {
+    return this.#head;
+  }
+  get tail() {
+    return this.#tail;
   }
   get length() {
-    let current: SinglyLinkedListNodeNext = this.head;
+    let current: SinglyLinkedListNodeNext<T> = this.#head;
     let count: number = 0;
     while (current) {
       current = current.next;
@@ -57,37 +63,37 @@ export class SinglyLinkedList {
     return count;
   }
   private inputChecker(
-    input: any,
-    nextValue: SinglyLinkedListNodeNext = null
-  ): SinglyLinkedListNode {
+    input: T | SinglyLinkedListNode<T>,
+    nextValue: SinglyLinkedListNodeNext<T> = null
+  ): SinglyLinkedListNode<T> {
     const actualData =
       input instanceof SinglyLinkedListNode ? input.data : input;
     return new SinglyLinkedListNode(actualData, nextValue);
   }
-  prepend(data: any) {
-    let newNode: SinglyLinkedListNode = this.inputChecker(data, this.head); // no need to check later, check during intialisation
-    if (!this.tail) {
-      this.head = this.tail = newNode;
+  prepend(data: T | SinglyLinkedListNode<T>) {
+    let newNode: SinglyLinkedListNode<T> = this.inputChecker(data, this.#head); // no need to check later, check during intialisation
+    if (!this.#tail) {
+      this.#head = this.#tail = newNode;
     } else {
-      this.head = newNode;
+      this.#head = newNode;
     }
     return this;
   }
-  append(data: any) {
-    let newNode: SinglyLinkedListNode = this.inputChecker(data);
-    if (!this.head) {
-      this.head = this.tail = newNode;
+  append(data: T | SinglyLinkedListNode<T>) {
+    let newNode: SinglyLinkedListNode<T> = this.inputChecker(data);
+    if (!this.#head) {
+      this.#head = this.#tail = newNode;
     } else {
-      if (this.tail) {
+      if (this.#tail) {
         // set new tail to new node
-        this.tail.next = newNode;
+        this.#tail.next = newNode;
         // update this.tail to accuratley reflect change
-        this.tail = newNode;
+        this.#tail = newNode;
       }
     }
     return this;
   }
-  insert(data: any, identifier: any = undefined) {
+  insert(data: T | SinglyLinkedListNode<T>, identifier: any = undefined) {
     // 1. Check if identifier is at head or tail
     // If so prepend or append the data accodingly
     if (identifier <= 0) {
@@ -98,8 +104,8 @@ export class SinglyLinkedList {
       // 2. Create an accureate new node of the data
       let newNode = this.inputChecker(data);
       // create pointers at previous and current node
-      let previous: SinglyLinkedListNodeNext = this.head;
-      let current: SinglyLinkedListNodeNext = this.head;
+      let previous: SinglyLinkedListNodeNext<T> = this.#head;
+      let current: SinglyLinkedListNodeNext<T> = this.#head;
       let count: number = 0;
       // 3. Itterate through the list until index is hit
       while (previous && current && count < identifier) {
@@ -118,14 +124,14 @@ export class SinglyLinkedList {
   delete(identifier: any) {
     // If identifier is less than or equal to zero remove head
     if (identifier <= 0) {
-      this.head = this.head?.next || null;
-      if (!this.head) {
-        this.tail = null;
+      this.#head = this.#head?.next || null;
+      if (!this.#head) {
+        this.#tail = null;
       }
     } else {
       // 1. Set pointers at previous, current and next
-      let previous: SinglyLinkedListNodeNext = null;
-      let current: SinglyLinkedListNodeNext = this.head;
+      let previous: SinglyLinkedListNodeNext<T> = null;
+      let current: SinglyLinkedListNodeNext<T> = this.#head;
       let count: number = 0;
       // 2. Traverse the linked list until the "index" is hit
       while (current && count < identifier) {
@@ -136,15 +142,15 @@ export class SinglyLinkedList {
       // 3. Set previous.next equal to current.next and the current.next = null
       if (previous) {
         previous.next = current?.next || null;
-        if (current === this.tail) {
-          this.tail = previous;
+        if (current === this.#tail) {
+          this.#tail = previous;
         }
       }
     }
   }
-  find(identifier: any): { data: any; index: number } | null {
+  find(identifier: any): { data: T; index: number } | null {
     // 1. Itterate through list
-    let current: SinglyLinkedListNodeNext = this.head;
+    let current: SinglyLinkedListNodeNext<T> = this.#head;
     let count: number = 0;
     while (current && count < identifier) {
       count += 1;
@@ -154,9 +160,9 @@ export class SinglyLinkedList {
     return current ? { data: current.data, index: count } : null;
   }
   reverse() {
-    let current: SinglyLinkedListNodeNext = this.head;
-    let previous: SinglyLinkedListNodeNext = null;
-    let next: SinglyLinkedListNodeNext = null;
+    let current: SinglyLinkedListNodeNext<T> = this.#head;
+    let previous: SinglyLinkedListNodeNext<T> = null;
+    let next: SinglyLinkedListNodeNext<T> = null;
     // 1. Iterate through over the list
     while (current) {
       next = current.next; // store next node
@@ -165,13 +171,13 @@ export class SinglyLinkedList {
       current = next; // move to next node
     }
     // 2. Swap the head and tail to reflect the change
-    this.tail = this.head;
-    this.head = previous;
+    this.#tail = this.#head;
+    this.#head = previous;
     return this;
   }
   print() {
-    let array: Array<SinglyLinkedListNode> = [];
-    let current: SinglyLinkedListNodeNext = this.head;
+    let array: Array<T> = [];
+    let current: SinglyLinkedListNodeNext<T> = this.#head;
     while (current) {
       array.push(current.data);
       current = current.next;
