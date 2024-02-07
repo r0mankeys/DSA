@@ -51,7 +51,7 @@ describe("Singly Linked List", () => {
       node4.data,
       node5.data,
     ]);
-    singly_linked_list.insert(peaches, 2);
+    singly_linked_list.insert({ data: "peaches", identifier: 2 });
     expect(singly_linked_list.print()).toStrictEqual([
       node2.data,
       node1.data,
@@ -81,6 +81,77 @@ describe("Singly Linked List", () => {
       node4.data,
       "peaches",
       node1.data,
+    ]);
+  });
+  test("insert() should correctly insert a node at a specific index in the list", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.insert({ data: node3.data, identifier: 1 });
+    expect(singly_linked_list.print()).toStrictEqual([
+      node1.data,
+      node3.data,
+      node2.data,
+    ]);
+  });
+  test("insert() should correctly insert a node before a node with a specific data value", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.insert({
+      data: node3.data,
+      identifier: { ref: node2.data },
+    });
+    expect(singly_linked_list.print()).toStrictEqual([
+      node1.data,
+      node3.data,
+      node2.data,
+    ]);
+  });
+
+  test("delete() should correctly remove the head of the list when the identifier is 0", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.delete(0);
+    expect(singly_linked_list.print()).toStrictEqual([node2.data]);
+  });
+
+  test("delete() should correctly remove a node at a specific index in the list", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.append(node3);
+    singly_linked_list.delete(1);
+    expect(singly_linked_list.print()).toStrictEqual([node1.data, node3.data]);
+  });
+
+  test("find() should correctly return the data and index of a node at a specific index in the list", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.append(node3);
+    expect(singly_linked_list.find(1)).toStrictEqual({
+      data: node2.data,
+      index: 1,
+    });
+  });
+
+  test("reverse() should correctly reverse the order of the nodes in the list", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.append(node3);
+    singly_linked_list.reverse();
+    expect(singly_linked_list.print()).toStrictEqual([
+      node3.data,
+      node2.data,
+      node1.data,
+    ]);
+  });
+
+  test("print() should correctly return an array of the data in the list", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.append(node3);
+    expect(singly_linked_list.print()).toStrictEqual([
+      node1.data,
+      node2.data,
+      node3.data,
     ]);
   });
 });
