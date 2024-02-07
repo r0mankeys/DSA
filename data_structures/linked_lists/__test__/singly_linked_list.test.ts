@@ -36,6 +36,7 @@ describe("Singly linked list with multiple nodes", () => {
   const singly_linked_list6 = new SinglyLinkedList();
   const singly_linked_list7 = new SinglyLinkedList();
   const singly_linked_list8 = new SinglyLinkedList();
+  const singly_linked_list9 = new SinglyLinkedList();
 
   let node1 = new SinglyLinkedListNode("first");
   let node2 = new SinglyLinkedListNode("second");
@@ -67,6 +68,10 @@ describe("Singly linked list with multiple nodes", () => {
 
   singly_linked_list7.appendMany(nodes);
   singly_linked_list8.prependMany(nodes);
+  singly_linked_list9.appendMany(nodes);
+
+  singly_linked_list9.delete(0);
+  singly_linked_list9.delete(2);
 
   test("Length of list should not be one as there are multiple nodes", () => {
     expect(singly_linked_list1.length === 1).toBe(false);
@@ -118,13 +123,28 @@ describe("Singly linked list with multiple nodes", () => {
       node5.data,
     ]);
   });
-  test("List should prepend all nodes in in input array", () => {
+  test("List should prepend all nodes in input array", () => {
     expect(singly_linked_list8.print()).toStrictEqual([
       node5.data,
       node4.data,
       node3.data,
       node2.data,
       node1.data,
+    ]);
+  });
+  test("List should delete first node in the list", () => {
+    expect(singly_linked_list9.print()).toStrictEqual([
+      node2.data,
+      node3.data,
+      // node4.data, // Because below I'm deleting at an index and can't be asked to make a new linked list, works though!!
+      node5.data,
+    ]);
+  });
+  test("List should delete a node in the list given an 'index'", () => {
+    expect(singly_linked_list9.print()).toStrictEqual([
+      node2.data,
+      node3.data,
+      node5.data,
     ]);
   });
 });
