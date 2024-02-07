@@ -147,4 +147,10 @@ describe("Singly linked list with multiple nodes", () => {
       node5.data,
     ]);
   });
+  test("Should return an object with found node", () => {
+    expect(singly_linked_list9.find(1)).toStrictEqual({
+      data: node3.data,
+      index: 1,
+    });
+  });
 });
