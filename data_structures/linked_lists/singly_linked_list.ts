@@ -123,6 +123,33 @@ export class SinglyLinkedList {
     }
     return this;
   }
+  delete(identifier: any) {
+    // If identifier is less than or equal to zero remove head
+    if (identifier <= 0) {
+      this.head = this.head?.next || null;
+      if (this.head === null) {
+        this.tail = null;
+      }
+    } else {
+      // 1. Set pointers at previous, current and next
+      let previous: SinglyLinkedListNodeNext = null;
+      let current: SinglyLinkedListNodeNext = this.head;
+      let count: number = 0;
+      // 2. Traverse the linked list until the "index" is hit
+      while (current && count < identifier) {
+        count += 1;
+        previous = current;
+        current = current.next;
+      }
+      // 3. Set previous.next equal to current.next and the current.next = null
+      if (previous) {
+        previous.next = current?.next || null;
+        if (current === this.tail) {
+          this.tail = previous;
+        }
+      }
+    }
+  }
   print() {
     let array: Array<SinglyLinkedListNode> = [];
     let current: SinglyLinkedListNodeNext = this.head;
