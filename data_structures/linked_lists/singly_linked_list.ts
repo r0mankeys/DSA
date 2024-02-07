@@ -165,7 +165,7 @@ export class SinglyLinkedList {
       current = current.next;
     }
     // 3. Return data and count
-    return current ? { data: current?.data, index: count } : null;
+    return current ? { data: current.data, index: count } : null;
   }
   print() {
     let array: Array<SinglyLinkedListNode> = [];
