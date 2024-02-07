@@ -177,3 +177,54 @@ export class SinglyLinkedList {
     return array;
   }
 }
+
+/* TODO: Update insert, delete and search methods for detailed 
+         search capabilities. Should be able to:
+
+         - insert a new node given an "index" or reference to data already in list
+         - delete a node given an "index" or reference to data already in list
+         - search for a node given an "index" or reference to data already in list
+
+         e.g.
+
+        class.insert({
+          data: {
+            name: "Finch",
+            age: 20,
+          }, 
+          identifier: 0
+        })  // should insert the data at the "index" 0 since identifier is of type number
+
+        class.insert({
+          data: {
+            name: "Finch",
+            age: 20
+          },
+          identifier: { ref: 0 }
+        })  // should insert the data at the node with data `0` since the identifier is of type object 
+                (I'll make this strongly typed to be of type node reference) 
+
+        This would only work for the "insert" method as it needs to take in data and then modify the list
+        , the parameters will be strongly typed (including the identifier), the "search" and "delete" 
+        methods would take a slightly different arguemt since there's no data to add
+
+        e.g.
+
+        class.delete({
+          identifier: 0
+        })  // should delete the node at "index" 0 since identifier is of type number  
+
+        class.delete({
+          identifier: { ref: 0 }
+        })  // should delete the node with data corresponding to `ref` since the indentifier
+               is of type object / `node reference` 
+
+        class.search({
+          identifier: 0
+        })  // should search for data of node at "index" 0 since identifier is of type number  
+
+        class.search({
+          identifier: { ref: 0 }
+        })  // should search for data of node with data corresponding to `ref` since the indentifier
+               is of type object / `node reference` 
+*/
