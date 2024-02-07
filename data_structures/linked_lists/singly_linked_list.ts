@@ -145,14 +145,14 @@ export class SinglyLinkedList<T> {
     }
     return this;
   }
-  delete(identifier: any) {
+  delete({ identifier }: ActionParams<T>) {
     // If identifier is less than or equal to zero remove head
-    if (identifier <= 0) {
+    if (typeof identifier === "number" && identifier <= 0) {
       this.#head = this.#head?.next || null;
       if (!this.#head) {
         this.#tail = null;
       }
-    } else {
+    } else if (typeof identifier === "number") {
       // 1. Set pointers at previous, current and next
       let previous: SinglyLinkedListNodeNext<T> = null;
       let current: SinglyLinkedListNodeNext<T> = this.#head;
@@ -164,6 +164,21 @@ export class SinglyLinkedList<T> {
         current = current.next;
       }
       // 3. Set previous.next equal to current.next and the current.next = null
+      if (previous) {
+        previous.next = current?.next || null;
+        if (current === this.#tail) {
+          this.#tail = previous;
+        }
+      }
+      return current ? current.data : null;
+    }
+    if (identifier instanceof Object) {
+      let previous: SinglyLinkedListNodeNext<T> = null;
+      let current: SinglyLinkedListNodeNext<T> = this.#head;
+      while (current && current.data !== identifier.ref) {
+        previous = current;
+        current = current.next;
+      }
       if (previous) {
         previous.next = current?.next || null;
         if (current === this.#tail) {
