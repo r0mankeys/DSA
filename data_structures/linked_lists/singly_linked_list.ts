@@ -87,14 +87,6 @@ export class SinglyLinkedList {
     }
     return this;
   }
-  appendMany(data: Array<any>) {
-    data.forEach((entry) => this.append(entry));
-    return this;
-  }
-  prependMany(data: Array<any>) {
-    data.forEach((entry) => this.prepend(entry));
-    return this;
-  }
   insert(data: any, identifier: any = undefined) {
     // 1. Check if identifier is at head or tail
     // If so prepend or append the data accodingly
@@ -127,7 +119,7 @@ export class SinglyLinkedList {
     // If identifier is less than or equal to zero remove head
     if (identifier <= 0) {
       this.head = this.head?.next || null;
-      if (this.head === null) {
+      if (!this.head) {
         this.tail = null;
       }
     } else {
@@ -151,20 +143,14 @@ export class SinglyLinkedList {
     }
   }
   find(identifier: any): { data: any; index: number } | null {
-    // 1. Check if data is identifier is at head or tail
-    if (identifier === 0) {
-      return { data: this.head?.data, index: 0 };
-    } else if (identifier === this.length - 1) {
-      return { data: this.tail?.data, index: this.length - 1 };
-    }
-    // 2. Itterate through list
+    // 1. Itterate through list
     let current: SinglyLinkedListNodeNext = this.head;
     let count: number = 0;
     while (current && count < identifier) {
       count += 1;
       current = current.next;
     }
-    // 3. Return data and count
+    // 2. Return data and count
     return current ? { data: current.data, index: count } : null;
   }
   reverse() {
