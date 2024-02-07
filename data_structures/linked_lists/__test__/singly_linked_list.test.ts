@@ -51,7 +51,7 @@ describe("Singly Linked List", () => {
       node4.data,
       node5.data,
     ]);
-    singly_linked_list.insert({ data: "peaches", identifier: 2 });
+    singly_linked_list.insert({ data: peaches, identifier: 2 });
     expect(singly_linked_list.print()).toStrictEqual([
       node2.data,
       node1.data,
@@ -70,7 +70,7 @@ describe("Singly Linked List", () => {
       node5.data,
     ]);
 
-    expect(singly_linked_list.find(1)).toStrictEqual({
+    expect(singly_linked_list.find({ identifier: 1 })).toStrictEqual({
       data: "peaches",
       index: 1,
     });
@@ -132,12 +132,11 @@ describe("Singly Linked List", () => {
     singly_linked_list.append(node1);
     singly_linked_list.append(node2);
     singly_linked_list.append(node3);
-    expect(singly_linked_list.find(1)).toStrictEqual({
+    expect(singly_linked_list.find({ identifier: 1 })).toStrictEqual({
       data: node2.data,
       index: 1,
     });
   });
-
   test("reverse() should correctly reverse the order of the nodes in the list", () => {
     singly_linked_list.append(node1);
     singly_linked_list.append(node2);
@@ -159,5 +158,16 @@ describe("Singly Linked List", () => {
       node2.data,
       node3.data,
     ]);
+  });
+  test("find() should correctly return the data and index of a a node given a refernce to that data in the list", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.append(node3);
+    expect(
+      singly_linked_list.find({ identifier: { ref: node2.data } })
+    ).toStrictEqual({
+      data: node2.data,
+      index: 1,
+    });
   });
 });
