@@ -1,5 +1,3 @@
-// Documentation for doubly linked list
-
 # Doubly Linked List
 
 ## Description
