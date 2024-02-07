@@ -167,6 +167,22 @@ export class SinglyLinkedList {
     // 3. Return data and count
     return current ? { data: current.data, index: count } : null;
   }
+  reverse() {
+    let current: SinglyLinkedListNodeNext = this.head;
+    let previous: SinglyLinkedListNodeNext = null;
+    let next: SinglyLinkedListNodeNext = null;
+    // 1. Iterate through over the list
+    while (current) {
+      next = current.next; // store next node
+      current.next = previous; // set current.next to previous node
+      previous = current; // set previous to current
+      current = next; // move to next node
+    }
+    // 2. Swap the head and tail to reflect the change
+    this.tail = this.head;
+    this.head = previous;
+    return this;
+  }
   print() {
     let array: Array<SinglyLinkedListNode> = [];
     let current: SinglyLinkedListNodeNext = this.head;
