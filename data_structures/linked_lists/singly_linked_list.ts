@@ -43,7 +43,7 @@ import type { SinglyLinkedListNodeNext } from "./singly_linked_list_node";
 type NodeReference = { ref: any };
 
 type ActionParams<T> = {
-  data?: T;
+  data?: T | SinglyLinkedListNode<T>;
   identifier: number | NodeReference;
 };
 
@@ -188,16 +188,27 @@ export class SinglyLinkedList<T> {
       return current ? current.data : null;
     }
   }
-  find(identifier: any): { data: T; index: number } | null {
+  find({ identifier }: ActionParams<T>): { data: T; index: number } | null {
     // 1. Itterate through list
-    let current: SinglyLinkedListNodeNext<T> = this.#head;
-    let count: number = 0;
-    while (current && count < identifier) {
-      count += 1;
-      current = current.next;
+    if (typeof identifier === "number") {
+      let current: SinglyLinkedListNodeNext<T> = this.#head;
+      let count: number = 0;
+      while (current && count < identifier) {
+        count += 1;
+        current = current.next;
+      }
+      // 2. Return data and count
+      return current ? { data: current.data, index: count } : null;
+    } else if (identifier instanceof Object) {
+      let current: SinglyLinkedListNodeNext<T> = this.#head;
+      let count: number = 0;
+      while (current && current.data !== identifier.ref) {
+        count += 1;
+        current = current.next;
+      }
+      return current ? { data: current.data, index: count } : null;
     }
-    // 2. Return data and count
-    return current ? { data: current.data, index: count } : null;
+    return null;
   }
   reverse() {
     let current: SinglyLinkedListNodeNext<T> = this.#head;
