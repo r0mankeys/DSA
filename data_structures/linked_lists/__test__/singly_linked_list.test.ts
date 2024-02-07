@@ -61,8 +61,8 @@ describe("Singly Linked List", () => {
       node5.data,
     ]);
 
-    singly_linked_list.delete(0);
-    singly_linked_list.delete(2);
+    singly_linked_list.delete({ identifier: 0 });
+    singly_linked_list.delete({ identifier: 2 });
     expect(singly_linked_list.print()).toStrictEqual([
       node1.data,
       "peaches",
@@ -110,7 +110,7 @@ describe("Singly Linked List", () => {
   test("delete() should correctly remove the head of the list when the identifier is 0", () => {
     singly_linked_list.append(node1);
     singly_linked_list.append(node2);
-    singly_linked_list.delete(0);
+    singly_linked_list.delete({ identifier: 0 });
     expect(singly_linked_list.print()).toStrictEqual([node2.data]);
   });
 
@@ -118,10 +118,16 @@ describe("Singly Linked List", () => {
     singly_linked_list.append(node1);
     singly_linked_list.append(node2);
     singly_linked_list.append(node3);
-    singly_linked_list.delete(1);
+    singly_linked_list.delete({ identifier: 1 });
     expect(singly_linked_list.print()).toStrictEqual([node1.data, node3.data]);
   });
-
+  test("delete() should correctly remove a node with a specific data value", () => {
+    singly_linked_list.append(node1);
+    singly_linked_list.append(node2);
+    singly_linked_list.append(node3);
+    singly_linked_list.delete({ identifier: { ref: node2.data } });
+    expect(singly_linked_list.print()).toStrictEqual([node1.data, node3.data]);
+  });
   test("find() should correctly return the data and index of a node at a specific index in the list", () => {
     singly_linked_list.append(node1);
     singly_linked_list.append(node2);
