@@ -150,6 +150,23 @@ export class SinglyLinkedList {
       }
     }
   }
+  find(identifier: any): { data: any; index: number } | null {
+    // 1. Check if data is identifier is at head or tail
+    if (identifier === 0) {
+      return { data: this.head?.data, index: 0 };
+    } else if (identifier === this.length - 1) {
+      return { data: this.tail?.data, index: this.length - 1 };
+    }
+    // 2. Itterate through list
+    let current: SinglyLinkedListNodeNext = this.head;
+    let count: number = 0;
+    while (current && count < identifier) {
+      count += 1;
+      current = current.next;
+    }
+    // 3. Return data and count
+    return current ? { data: current?.data, index: count } : null;
+  }
   print() {
     let array: Array<SinglyLinkedListNode> = [];
     let current: SinglyLinkedListNodeNext = this.head;
