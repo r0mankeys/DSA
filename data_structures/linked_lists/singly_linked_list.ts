@@ -40,6 +40,13 @@
 import { SinglyLinkedListNode } from "./singly_linked_list_node";
 import type { SinglyLinkedListNodeNext } from "./singly_linked_list_node";
 
+type NodeReference = { ref: any };
+
+type ActionParams<T> = {
+  data?: T;
+  identifier: number | NodeReference;
+};
+
 export class SinglyLinkedList<T> {
   #head: SinglyLinkedListNodeNext<T>;
   #tail: SinglyLinkedListNodeNext<T>;
@@ -93,14 +100,18 @@ export class SinglyLinkedList<T> {
     }
     return this;
   }
-  insert(data: T | SinglyLinkedListNode<T>, identifier: any = undefined) {
+  insert({ data, identifier }: ActionParams<T>) {
     // 1. Check if identifier is at head or tail
     // If so prepend or append the data accodingly
-    if (identifier <= 0) {
+    if (data && typeof identifier === "number" && identifier <= 0) {
       this.prepend(data);
-    } else if (identifier >= this.length) {
+    } else if (
+      data &&
+      typeof identifier === "number" &&
+      identifier >= this.length
+    ) {
       this.append(data);
-    } else {
+    } else if (data && typeof identifier === "number") {
       // 2. Create an accureate new node of the data
       let newNode = this.inputChecker(data);
       // create pointers at previous and current node
@@ -114,6 +125,19 @@ export class SinglyLinkedList<T> {
         current = current.next;
       }
       // 4. Set previous.next to newNode, set newNode.next to current
+      if (previous && current) {
+        newNode.next = current;
+        previous.next = newNode;
+      }
+    }
+    if (data && identifier instanceof Object) {
+      let newNode = this.inputChecker(data);
+      let previous: SinglyLinkedListNodeNext<T> = this.#head;
+      let current: SinglyLinkedListNodeNext<T> = this.#head;
+      while (previous && current && current.data !== identifier.ref) {
+        previous = current;
+        current = current.next;
+      }
       if (previous && current) {
         newNode.next = current;
         previous.next = newNode;
@@ -146,6 +170,7 @@ export class SinglyLinkedList<T> {
           this.#tail = previous;
         }
       }
+      return current ? current.data : null;
     }
   }
   find(identifier: any): { data: T; index: number } | null {
@@ -227,12 +252,27 @@ export class SinglyLinkedList<T> {
         })  // should delete the node with data corresponding to `ref` since the indentifier
                is of type object / `node reference` 
 
-        class.search({
+        class.find({
           identifier: 0
         })  // should search for data of node at "index" 0 since identifier is of type number  
 
-        class.search({
+        class.find({
           identifier: { ref: 0 }
         })  // should search for data of node with data corresponding to `ref` since the indentifier
                is of type object / `node reference` 
+
+        I am going to make the identifier argument strongly typed to be of type `number` or `node reference`
+        and the `node reference` will be a type that is a reference to a node in the list, this will allow
+        the user to search for data in the list by passing in a reference to the data they are looking for.
+
+        I am also going to add a method to the class that will allow the user to get the data of a node at a
+        specific index, this will be useful for the user to get the data of a node at a specific index.
+
+        Steps:
+
+        1. Create a type alias for the parameters of the insert, delete and find methods
+          1b. Should contain an optional data property and an identifier property
+          1c. Create a type for the identifier property that is a number or a node reference
+        2. Update the methods to take in the new parameters
+        3. Update the methods to handle the new parameters
 */
