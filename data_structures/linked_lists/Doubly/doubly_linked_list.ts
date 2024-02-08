@@ -49,4 +49,13 @@ export class DoublyLinkedList<T> {
       return this;
     }
   }
+  print(): Array<T> {
+    const result: Array<T> = [];
+    let current: DoublyLinkedListNodeShape<T> | null = this.#head;
+    while (current) {
+      result.push(current.data);
+      current = current.next;
+    }
+    return result;
+  }
 }
