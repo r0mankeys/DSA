@@ -116,4 +116,24 @@ describe("Doubly Linked List", () => {
     doublyLinkedList.delete({ identifier: { ref: node2.data } });
     expect(doublyLinkedList.print()).toStrictEqual(["first", "third"]);
   });
+  test("find() should return an object in the list with the data and that datas `index` given an index identifier", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    expect(doublyLinkedList.find({ identifier: 1 })).toStrictEqual({
+      data: "second",
+      index: 1,
+    });
+  });
+  test("find() should return an object in the list with the data and that datas `index` given a refernce to the data as the identifier", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    expect(
+      doublyLinkedList.find({ identifier: { ref: node2.data } })
+    ).toStrictEqual({
+      data: "second",
+      index: 1,
+    });
+  });
 });
