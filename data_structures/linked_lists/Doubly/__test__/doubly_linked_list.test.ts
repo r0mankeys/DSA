@@ -86,4 +86,34 @@ describe("Doubly Linked List", () => {
       "third",
     ]);
   });
+  test("delete() should delete the head node in the list and reset the head to the appropriate node", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    doublyLinkedList.delete({ identifier: 0 });
+    expect(doublyLinkedList.print()).toStrictEqual(["second", "third"]);
+    expect(doublyLinkedList.head).toStrictEqual(node2);
+  });
+  test("delete() should delete the tail node in the list and reset the tail to the appropriate node", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    doublyLinkedList.delete({ identifier: Infinity });
+    expect(doublyLinkedList.print()).toStrictEqual(["first", "second"]);
+    expect(doublyLinkedList.tail).toStrictEqual(node2);
+  });
+  test("delete() should delete the node in the list given at the `index` identifier", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    doublyLinkedList.delete({ identifier: 1 });
+    expect(doublyLinkedList.print()).toStrictEqual(["first", "third"]);
+  });
+  test("delete() should delete the node in the list given `ref` to the intended data from the identifier", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    doublyLinkedList.delete({ identifier: { ref: node2.data } });
+    expect(doublyLinkedList.print()).toStrictEqual(["first", "third"]);
+  });
 });
