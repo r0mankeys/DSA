@@ -52,4 +52,14 @@ describe("Doubly Linked List", () => {
     expect(doublyLinkedList.tail).toStrictEqual(node3);
     expect(doublyLinkedList.length).toBe(3);
   });
+  test("should return an array of the data in the list", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    expect(doublyLinkedList.print()).toStrictEqual([
+      "first",
+      "second",
+      "third",
+    ]);
+  });
 });
