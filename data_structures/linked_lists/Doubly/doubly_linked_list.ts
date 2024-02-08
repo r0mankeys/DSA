@@ -91,6 +91,48 @@ export class DoublyLinkedList<T> {
       }
     }
   }
+  delete({ identifier }: ActionParams<T>) {
+    // Handle case where where wanting to delete from the the head node
+    if (typeof identifier === "number" && identifier <= 0) {
+      this.#head = this.#head?.next || null;
+      if (!this.#head) {
+        this.#tail = null;
+      }
+      // Hanlde case where wanting to delete from the tail node
+    } else if (
+      typeof identifier === "number" &&
+      identifier >= this.length &&
+      this.#tail &&
+      this.#tail.prev
+    ) {
+      console.log("Current tail: ", this.#tail.data);
+      console.log("Thing I want to make tail: ", this.#tail.prev?.data);
+      this.#tail.prev.next = null; // This actually deletes the tail
+      this.#tail.prev = this.#tail; // This just updates the #tail property
+    }
+    // Handle case where wanting to delete from the middle of the list
+    if (typeof identifier === "number") {
+      let current: DoublyLinkedListNodeShape<T> | null = this.#head;
+      let count: number = 0;
+      while (current) {
+        if (count === identifier && current.prev) {
+          current.prev.next = current.next;
+          return this;
+        }
+        count += 1;
+        current = current.next;
+      }
+    } else if (identifier instanceof Object) {
+      let current: DoublyLinkedListNodeShape<T> | null = this.#head;
+      while (current) {
+        if (current.data === identifier.ref && current.prev) {
+          current.prev.next = current.next;
+          return this;
+        }
+        current = current.next;
+      }
+    }
+  }
   print(): Array<T> {
     const result: Array<T> = [];
     let current: DoublyLinkedListNodeShape<T> | null = this.#head;
