@@ -1,6 +1,12 @@
 import { DoublyLinkedListNode } from "./doubly_linked_list_node";
 import type { DoublyLinkedListNodeShape } from "./doubly_linked_list_node";
 
+type NodeReference<T> = { ref: T };
+interface ActionParams<T> {
+  data?: T | DoublyLinkedListNode<T>;
+  identifier: number | NodeReference<T>;
+}
+
 export class DoublyLinkedList<T> {
   #head: DoublyLinkedListNodeShape<T> | null;
   #tail: DoublyLinkedListNodeShape<T> | null;
@@ -47,6 +53,42 @@ export class DoublyLinkedList<T> {
       this.#tail.next = newNode;
       this.#tail = newNode;
       return this;
+    }
+  }
+  insert({ data, identifier }: ActionParams<T>) {
+    if (data && typeof identifier === "number" && identifier <= 0) {
+      this.prepend(data);
+    } else if (
+      data &&
+      typeof identifier === "number" &&
+      identifier >= this.length
+    ) {
+      this.append(data);
+    } else if (data && typeof identifier === "number") {
+      let current: DoublyLinkedListNodeShape<T> | null = this.#head;
+      let newNode = this.inputCheker(data);
+      let count = 0;
+      while (current) {
+        if (count === identifier && current.prev) {
+          current.prev.next = newNode;
+          newNode.next = current;
+          return this;
+        }
+        count += 1;
+        current = current.next;
+      }
+    }
+    if (data && identifier instanceof Object) {
+      let current: DoublyLinkedListNodeShape<T> | null = this.#head;
+      let newNode = this.inputCheker(data);
+      while (current) {
+        if (current.data === identifier.ref && current.prev) {
+          current.prev.next = newNode;
+          newNode.next = current;
+          return this;
+        }
+        current = current.next;
+      }
     }
   }
   print(): Array<T> {
