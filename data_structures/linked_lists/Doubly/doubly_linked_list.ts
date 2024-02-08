@@ -2,9 +2,11 @@ import { DoublyLinkedListNode } from "./doubly_linked_list_node";
 import type { DoublyLinkedListNodeShape } from "./doubly_linked_list_node";
 
 type NodeReference<T> = { ref: T };
+
+type Index = number;
 interface ActionParams<T> {
   data?: T | DoublyLinkedListNode<T>;
-  identifier: number | NodeReference<T>;
+  identifier: Index | NodeReference<T>;
 }
 
 export class DoublyLinkedList<T> {
@@ -132,6 +134,30 @@ export class DoublyLinkedList<T> {
         current = current.next;
       }
     }
+  }
+  find({ identifier }: ActionParams<T>) {
+    if (typeof identifier === "number") {
+      let current: DoublyLinkedListNodeShape<T> | null = this.#head;
+      let count: number = 0;
+      while (current) {
+        if (count === identifier) {
+          return { data: current.data, index: count };
+        }
+        count += 1;
+        current = current.next;
+      }
+    } else if (identifier instanceof Object) {
+      let current: DoublyLinkedListNodeShape<T> | null = this.#head;
+      let count: number = 0;
+      while (current) {
+        if (current.data === identifier.ref) {
+          return { data: current.data, index: count };
+        }
+        count += 1;
+        current = current.next;
+      }
+    }
+    return null;
   }
   print(): Array<T> {
     const result: Array<T> = [];
