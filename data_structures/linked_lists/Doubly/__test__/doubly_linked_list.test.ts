@@ -22,29 +22,29 @@ describe("Doubly Linked List", () => {
     expect(doublyLinkedList.tail).toBeNull();
     expect(doublyLinkedList.length).toBe(0);
   });
-  test("should prepend a node to the list", () => {
+  test("prepend() should prepend a node to the list", () => {
     doublyLinkedList.prepend(node1);
     expect(doublyLinkedList.head).toStrictEqual(node1);
     expect(doublyLinkedList.tail).toStrictEqual(node1);
     expect(doublyLinkedList.length).toBe(1);
   });
-  test("should append a node to the list", () => {
+  test("append() should append a node to the list", () => {
     doublyLinkedList.append(node1);
     expect(doublyLinkedList.head).toStrictEqual(node1);
     expect(doublyLinkedList.tail).toStrictEqual(node1);
     expect(doublyLinkedList.length).toBe(1);
   });
-  test("appended node should have a previous and next value of null", () => {
+  test("append() appended node should have a previous and next value of null", () => {
     doublyLinkedList.append(node1);
     expect(node1.prev).toBeNull();
     expect(node1.next).toBeNull();
   });
-  test("prepended node should have a previous and next value of null", () => {
+  test("prepend() prepended node should have a previous and next value of null", () => {
     doublyLinkedList.prepend(node1);
     expect(node1.prev).toBeNull();
     expect(node1.next).toBeNull();
   });
-  test("should append multiple nodes to the list", () => {
+  test("append() should append multiple nodes to the list", () => {
     doublyLinkedList.append(node1);
     doublyLinkedList.append(node2);
     doublyLinkedList.append(node3);
@@ -52,12 +52,36 @@ describe("Doubly Linked List", () => {
     expect(doublyLinkedList.tail).toStrictEqual(node3);
     expect(doublyLinkedList.length).toBe(3);
   });
-  test("should return an array of the data in the list", () => {
+  test("print() should return an array of all of the nodes in the list", () => {
     doublyLinkedList.append(node1);
     doublyLinkedList.append(node2);
     doublyLinkedList.append(node3);
     expect(doublyLinkedList.print()).toStrictEqual([
       "first",
+      "second",
+      "third",
+    ]);
+  });
+  test("insert() should insert a node at the given index (since the identifier is not of type `NodeRefernce`)", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    doublyLinkedList.insert({ data: node4, identifier: 1 });
+    expect(doublyLinkedList.print()).toStrictEqual([
+      "first",
+      "fourth",
+      "second",
+      "third",
+    ]);
+  });
+  test("insert() should insert a node before the identifier reference", () => {
+    doublyLinkedList.append(node1);
+    doublyLinkedList.append(node2);
+    doublyLinkedList.append(node3);
+    doublyLinkedList.insert({ data: node4, identifier: { ref: node2.data } });
+    expect(doublyLinkedList.print()).toStrictEqual([
+      "first",
+      "fourth",
       "second",
       "third",
     ]);
